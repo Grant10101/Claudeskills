@@ -1,0 +1,77 @@
+{
+ "compiled_from": [
+  {
+   "name": "3 fingered pinch",
+   "id": "g-20261121-070009-fc9a",
+   "fingers": 3,
+   "touchdown_spread_ms": 8,
+   "ratio": 0.13299814303692573,
+   "radial": -0.9789208646431883,
+   "rotation": -14.392559996617093,
+   "start_spread_px": 215.93161265134586
+  },
+  {
+   "name": "3 fingered pinch rec 2",
+   "id": "g-20261121-070026-03cf",
+   "fingers": 3,
+   "touchdown_spread_ms": 0,
+   "ratio": 0.2101124157768723,
+   "radial": -0.9510411068135683,
+   "rotation": -7.922728602067727,
+   "start_spread_px": 206.92848432371935
+  },
+  {
+   "name": "3 fingered pinch rec 3",
+   "id": "g-20261121-070052-47a4",
+   "fingers": 3,
+   "touchdown_spread_ms": 45,
+   "ratio": 0.34100873242358615,
+   "radial": -0.9253922047010446,
+   "rotation": -2.879674014717104,
+   "start_spread_px": 194.44941349695173
+  },
+  {
+   "name": "3 finger expand rec 1",
+   "id": "g-20261121-070106-61df",
+   "fingers": 3,
+   "touchdown_spread_ms": 8,
+   "ratio": 2.7886787743657426,
+   "radial": 0.4791036774410014,
+   "rotation": 26.9779342496329,
+   "start_spread_px": 59.497863341144146
+  },
+  {
+   "name": "3 fingered expand rec 2",
+   "id": "g-20261121-070119-e31e",
+   "fingers": 3,
+   "touchdown_spread_ms": 12,
+   "ratio": 3.36651487532728,
+   "radial": 0.7906582499620972,
+   "rotation": 20.36012444407256,
+   "start_spread_px": 92.0099346971903
+  },
+  {
+   "name": "3 fingered expand rec 3",
+   "id": "g-20261121-070132-2450",
+   "fingers": 3,
+   "touchdown_spread_ms": 0,
+   "ratio": 2.700469111470296,
+   "radial": 0.624286546525347,
+   "rotation": 2.9758309905746394,
+   "start_spread_px": 61.97267844066886
+  }
+ ],
+ "thresholds": {
+  "max_touchdown_spread_ms": 300,
+  "engage_pinch_ratio": 0.92,
+  "engage_expand_ratio": 1.08,
+  "engage_radial": 0.3,
+  "pinch_target_ratio": 0.21,
+  "expand_target_ratio": 2.789,
+  "commit_pinch_max_ratio": 0.682,
+  "commit_expand_min_ratio": 1.4,
+  "commit_radial": 0.24,
+  "max_rotation_deg": 67,
+  "min_pinch_start_spread_px": 25
+ }
+}

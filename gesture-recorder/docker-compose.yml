@@ -1,0 +1,12 @@
+services:
+  gesture-recorder:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      BASE_PATH: /gestures
+      GESTURE_DIR: /data/gestures
+      # GESTURE_WRITE_TOKEN: change-me   # uncomment to require a key for saving
+    volumes:
+      - ./gestures:/data/gestures       # gesture files land in this repo's gestures/ folder

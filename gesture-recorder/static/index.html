@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2a2d31">
+<meta name="gesture-api" content="">
+<meta name="gesture-token-required" content="0">
+<title>Gesture Recorder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <div class="plate" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="badge">GESTURE&nbsp;REC</div>
+    <button id="menuBtn" class="menu-btn" aria-label="Recorded gestures" aria-expanded="false">
+      <span></span><span></span><span></span>
+      <b id="countBadge" class="count" hidden>0</b>
+    </button>
+  </header>
+
+  <main class="center">
+    <div class="rec-plate">
+      <i class="rivet tl"></i><i class="rivet tr"></i><i class="rivet bl"></i><i class="rivet br"></i>
+      <div class="rec-bezel">
+        <button id="recBtn" class="rec-btn" aria-label="Record a gesture"><span>REC</span></button>
+      </div>
+    </div>
+    <p id="status" class="status">Tap to record</p>
+  </main>
+
+  <!-- capture surface: covers the screen while recording -->
+  <div id="capture" class="capture" hidden>
+    <canvas id="liveCanvas"></canvas>
+    <div class="capture-hint" id="captureHint"><span class="dot"></span>Recording — draw your gesture anywhere</div>
+    <button id="cancelRec" class="chip">Cancel</button>
+  </div>
+
+  <!-- after recording: name or delete -->
+  <div id="saveBox" class="modal" hidden>
+    <div class="box">
+      <div class="box-title">New gesture</div>
+      <canvas id="previewCanvas" class="preview"></canvas>
+      <div id="previewLabel" class="label-line"></div>
+      <input id="nameInput" class="name-input" maxlength="80" placeholder="Name this gesture" autocomplete="off" enterkeyhint="done">
+      <input id="tokenInput" class="name-input token" placeholder="Access key" autocomplete="off" hidden>
+      <div class="row">
+        <button id="deleteNew" class="btn danger">Delete</button>
+        <button id="saveNew" class="btn primary">Save</button>
+      </div>
+      <div id="saveError" class="err" hidden></div>
+    </div>
+  </div>
+
+  <!-- menu: previously recorded gestures -->
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span>Gestures</span>
+      <button id="closeDrawer" class="x" aria-label="Close">&times;</button>
+    </div>
+    <div id="storeNote" class="store-note"></div>
+    <ul id="gestureList" class="list"></ul>
+    <p id="emptyList" class="empty">No gestures yet. Hit the red button.</p>
+  </aside>
+  <div id="scrim" class="scrim" hidden></div>
+
+  <!-- playback of a saved gesture -->
+  <div id="viewer" class="modal" hidden>
+    <div class="box tall">
+      <input id="viewName" class="name-input title-input" maxlength="80" aria-label="Gesture name">
+      <canvas id="viewCanvas" class="preview big"></canvas>
+      <div id="viewLabel" class="label-line"></div>
+      <div id="viewMeta" class="meta"></div>
+      <div class="row">
+        <button id="viewDelete" class="btn danger">Delete</button>
+        <button id="viewClose" class="btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="static/core.js"></script>
+  <script src="static/app.js"></script>
+</body>
+</html>

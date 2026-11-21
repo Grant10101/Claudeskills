@@ -1,0 +1,17 @@
+# systemd unit (alternative to Docker). Copy to /etc/systemd/system/, then:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now gesture-recorder
+[Unit]
+Description=Gesture Recorder (rx3productions.com/gestures)
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/Claudeskills/gesture-recorder
+Environment=BASE_PATH=/gestures
+Environment=GESTURE_DIR=/opt/Claudeskills/gesture-recorder/gestures
+Environment=PORT=8000
+ExecStart=/opt/Claudeskills/gesture-recorder/.venv/bin/python app.py
+Restart=always
+User=www-data
+
+[Install]
+WantedBy=multi-user.target

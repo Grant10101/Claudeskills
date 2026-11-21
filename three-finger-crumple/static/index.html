@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c0e11">
+<title>3-Finger Crumple Test</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0c0e11; touch-action: none;
+    overscroll-behavior: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  body { position: fixed; inset: 0; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #hud { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    font: 600 14px/1.3 -apple-system, system-ui, sans-serif; color: rgba(255,255,255,.85); background: rgba(0,0,0,.35);
+    padding: 7px 12px; border-radius: 16px; pointer-events: none; white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis; }
+</style>
+</head>
+<body>
+<canvas id="paper"></canvas>
+<div id="hud">3-finger pinch to crumple</div>
+<script src="detector-config.js"></script>
+<script src="detector.js"></script>
+<script src="crumple.js"></script>
+<script>
+(function () {
+  "use strict";
+  var paper = new CrumplePaper(document.getElementById("paper"));
+  var det = new ThreeFingerDetector(window.DETECTOR_CONFIG, "full");
+  var hud = document.getElementById("hud");
+  var view = { p: 0, center: [innerWidth / 2, innerHeight / 2] };
+  var anim = null;
+
+  function render() { paper.draw(view.p, view.center); }
+  function setHud(s) { hud.textContent = s; }
+  function animateTo(target, ms, done) {
+    var from = view.p, t0 = performance.now();
+    if (anim) cancelAnimationFrame(anim);
+    (function step(now) {
+      var u = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - u, 3);
+      view.p = from + (target - from) * e; render();
+      if (u < 1) anim = requestAnimationFrame(step); else { anim = null; if (done) done(); }
+    })(t0);
+  }
+  var pending = null;
+  function frame() { pending = null; render(); }
+
+  function handle(evts) {
+    evts.forEach(function (e) {
+      if (e.type === "engage") {
+        if (anim) { cancelAnimationFrame(anim); anim = null; }
+        if (e.kind === "expand") view.center = e.center;
+        setHud(e.kind === "pinch" ? "3-finger pinch…" : "3-finger expand…");
+      } else if (e.type === "progress") {
+        if (e.kind === "pinch") { view.p = e.p; view.center = e.center; }
+        else { view.p = 1 - e.p; view.center = e.center; }
+        if (!pending) pending = requestAnimationFrame(frame);
+      } else if (e.type === "commit") {
+        // finger lift = end of the gesture: finish exactly there
+        if (e.kind === "pinch") animateTo(1, 140, function () { setHud("Crumpled ✓  — 3-finger expand to restore"); });
+        else animateTo(0, 160, function () { setHud("Restored ✓  — 3-finger pinch to crumple"); });
+      } else if (e.type === "cancel") {
+        animateTo(e.kind === "pinch" ? 0 : 1, 220);
+        setHud("Not recognized: " + e.reason);
+      } else if (e.type === "reject") {
+        setHud("Ignored: " + e.reason);
+      }
+    });
+  }
+
+  function xy(e) { return [e.clientX, e.clientY]; }
+  addEventListener("pointerdown", function (e) { e.preventDefault(); var p = xy(e); handle(det.down(e.pointerId, e.timeStamp, p[0], p[1])); }, { passive: false });
+  addEventListener("pointermove", function (e) { var p = xy(e); handle(det.move(e.pointerId, e.timeStamp, p[0], p[1])); });
+  addEventListener("pointerup", function (e) { var p = xy(e); handle(det.up(e.pointerId, e.timeStamp, p[0], p[1])); });
+  addEventListener("pointercancel", function (e) { var p = xy(e); handle(det.up(e.pointerId, e.timeStamp, p[0], p[1])); });
+  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
+  addEventListener("resize", function () { paper.resize(); render(); });
+
+  render();
+  window.__crumple = { view: view, paper: paper, det: det, hud: function () { return hud.textContent; } };
+})();
+</script>
+</body>
+</html>

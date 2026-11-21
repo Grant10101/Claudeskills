@@ -1,0 +1,14 @@
+# Cloudflare Tunnel ingress for rx3productions.com/gestures
+# Merge the /gestures rule into the server's existing cloudflared config
+# (usually /etc/cloudflared/config.yml), ABOVE the rule that serves the main site.
+tunnel: <YOUR-TUNNEL-ID>
+credentials-file: /etc/cloudflared/<YOUR-TUNNEL-ID>.json
+
+ingress:
+  - hostname: rx3productions.com
+    path: ^/gestures(/.*)?$
+    service: http://localhost:8000
+  # existing rule for the rest of the site stays below, e.g.:
+  # - hostname: rx3productions.com
+  #   service: http://localhost:80
+  - service: http_status:404

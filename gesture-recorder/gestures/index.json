@@ -1,0 +1,67 @@
+{
+ "format": "gesture-recorder/v1",
+ "note": "Catalog only; each gesture lives in its own <id>.json file next to this one.",
+ "updated_at": "2026-11-21T07:20:31+00:00",
+ "gestures": [
+  {
+   "id": "g-20261121-070132-2450",
+   "name": "3 fingered expand rec 3",
+   "created_at": "2026-11-21T07:01:32.539Z",
+   "label": "sequence: swipe-up, swipe-up, swipe-down-left",
+   "duration_ms": 371,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070132-2450.json"
+  },
+  {
+   "id": "g-20261121-070119-e31e",
+   "name": "3 fingered expand rec 2",
+   "created_at": "2026-11-21T07:01:19.308Z",
+   "label": "sequence: swipe-up, swipe-down-left, swipe-up",
+   "duration_ms": 337,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070119-e31e.json"
+  },
+  {
+   "id": "g-20261121-070106-61df",
+   "name": "3 finger expand rec 1",
+   "created_at": "2026-11-21T07:01:06.432Z",
+   "label": "sequence: swipe-down-left, swipe-up-right, swipe-up",
+   "duration_ms": 212,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070106-61df.json"
+  },
+  {
+   "id": "g-20261121-070052-47a4",
+   "name": "3 fingered pinch rec 3",
+   "created_at": "2026-11-21T07:00:52.355Z",
+   "label": "sequence: swipe-up-right, swipe-down, swipe-down",
+   "duration_ms": 171,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070052-47a4.json"
+  },
+  {
+   "id": "g-20261121-070026-03cf",
+   "name": "3 fingered pinch rec 2",
+   "created_at": "2026-11-21T07:00:26.122Z",
+   "label": "sequence: swipe-up, swipe-down-right, swipe-down",
+   "duration_ms": 437,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070026-03cf.json"
+  },
+  {
+   "id": "g-20261121-070009-fc9a",
+   "name": "3 fingered pinch",
+   "created_at": "2026-11-21T07:00:09.180Z",
+   "label": "sequence: swipe-down, swipe-up, curve",
+   "duration_ms": 338,
+   "finger_count": 3,
+   "stroke_count": 3,
+   "file": "g-20261121-070009-fc9a.json"
+  }
+ ]
+}
